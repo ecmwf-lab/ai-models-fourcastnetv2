@@ -249,15 +249,15 @@ class NvidiaSpherical(Model):
                 if i == 0 and LOG.isEnabledFor(logging.DEBUG):
                     LOG.debug("Mean/stdev of denormalised values: %s", output.shape)
 
-                for j, name in enumerate(self.ordering):
-                    LOG.info(
-                        "    %s mean=%s std=%s min=%s max=%s",
-                        name,
-                        np.mean(output[:, j]),
-                        np.std(output[:, j]),
-                        np.amin(output[:, j]),
-                        np.amax(output[:, j]),
-                    )
+                    for j, name in enumerate(self.ordering):
+                        LOG.debug(
+                            "    %s mean=%s std=%s min=%s max=%s",
+                            name,
+                            np.mean(output[:, j]),
+                            np.std(output[:, j]),
+                            np.amin(output[:, j]),
+                            np.amax(output[:, j]),
+                        )
 
                 for k, fs in enumerate(all_fields):
                     self.write(
