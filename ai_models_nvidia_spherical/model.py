@@ -15,7 +15,6 @@ from ai_models.model import Model
 import datetime
 
 import ai_models_nvidia_spherical.nvidia_spherical as nvs
-from ai_models_nvidia_spherical.nvidia_spherical.inference import Inference
 
 LOG = logging.getLogger(__name__)
 
@@ -23,7 +22,8 @@ LOG = logging.getLogger(__name__)
 class NvidiaSpherical(Model):
     # Download not yet working....
     # Download
-    download_url = "https://get.ecmwf.int/repository/test-data/ai-models/nvidia-spherical/0.0/{file}"
+    # download_url = "https://get.ecmwf.int/repository/test-data/ai-models/nvidia-spherical/0.0/{file}"
+    download_url = "file:////home/mlx/data/weights/sfno/0.0/{file}"
     download_files = ["weights.tar", "global_means.npy", "global_stds.npy"]
 
     # Input
@@ -36,7 +36,7 @@ class NvidiaSpherical(Model):
         ["t", "u", "v", "z", "r"],
         [1000, 925, 850, 700, 600, 500, 400, 300, 250, 200, 150, 100, 50],
     )
-
+    
     ordering = [
         "10u",
         "10v",
@@ -176,15 +176,6 @@ class NvidiaSpherical(Model):
 
         return model
 
-    def load_inference(self, model):
-        return Inference(
-            model,
-            list(range(self.backbone_channels)),
-            center=self.means,
-            scale=self.stds,
-            time_step=datetime.timedelta(hours=self.hour_steps),
-        )
-
     def normalise(self, data, reverse=False):
         """Normalise data using pre-saved global statistics"""
         if reverse:
@@ -205,26 +196,21 @@ class NvidiaSpherical(Model):
             remapping={"param_level": "{param}{levelist}"},
         )
 
-        # all_fields_numpy = all_fields.to_numpy(dtype=np.float32)[np.newaxis, np.newaxis, :, :, :]
         all_fields_numpy = all_fields.to_numpy(dtype=np.float32)
-        print(all_fields_numpy.shape)
 
         all_fields_numpy = self.normalise(all_fields_numpy)
 
         model = self.load_model(self.checkpoint_path)
-        # inference = self.load_inference(model)
-
+        
         # Run the inference session
         input_iter = torch.from_numpy(all_fields_numpy).to(self.device)
 
         sample_sfc = all_fields.sel(param="2t")[0]
 
         torch.set_grad_enabled(False)
-        # initial_time = datetime.datetime(2023,6,26,12,0)
-        # lead_time = datetime.timedelta(days=0)
+
         with self.stepper(self.hour_steps) as stepper:
             for i in range(self.lead_time // self.hour_steps):
-                # for i, output in enumerate(inference.run_steps(input_iter, self.lead_time // self.hour_steps, time=initial_time)):
                 output = model(input_iter)
 
                 input_iter = output
@@ -244,7 +230,6 @@ class NvidiaSpherical(Model):
                 # Save the results
                 step = (i + 1) * self.hour_steps
                 output = self.normalise(output.cpu().numpy(), reverse=True)
-                # output = output.cpu().numpy()
 
                 if i == 0 and LOG.isEnabledFor(logging.DEBUG):
                     LOG.debug("Mean/stdev of denormalised values: %s", output.shape)
