@@ -32,7 +32,7 @@ assert version
 setuptools.setup(
     name="ai-models-nvidia-spherical",
     version=version,
-    description="An ai-models plugin to run the Nvidia spherical harmonics model",
+    description="An ai-models plugin to run the Nvidia spherical harmonics FourCastNet v2 (small) model",
     long_description=read("README.md"),
     long_description_content_type="text/markdown",
     author="European Centre for Medium-Range Weather Forecasts (ECMWF)",
@@ -44,14 +44,13 @@ setuptools.setup(
     install_requires=[
         "ai-models",
         "torch>=2.0.0",
-        "torch_harmonics==0.6.1",
-        "examples",  # torch harmonics bug...
+        "torch_harmonics==0.6.2",
         "ruamel.yaml>=0.17.21",
     ],
     zip_safe=True,
     keywords="tool",
     entry_points={
-        "ai_models.model": ["nvidia_spherical = ai_models_nvidia_spherical.model:model"]
+        "ai_models.model": ["fourcastnetv2-small = ai_models_nvidia_spherical.model:model"]
     },
     classifiers=[
         "Development Status :: 3 - Alpha",

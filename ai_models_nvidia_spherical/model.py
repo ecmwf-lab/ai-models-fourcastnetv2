@@ -20,9 +20,7 @@ LOG = logging.getLogger(__name__)
 
 
 class NvidiaSpherical(Model):
-    # Download not yet working....
     # Download
-    # download_url = "https://get.ecmwf.int/repository/test-data/ai-models/nvidia-spherical/0.0/{file}"
     download_url = "file:////home/mlx/data/weights/sfno/0.0/{file}"
     download_files = ["weights.tar", "global_means.npy", "global_stds.npy"]
 
