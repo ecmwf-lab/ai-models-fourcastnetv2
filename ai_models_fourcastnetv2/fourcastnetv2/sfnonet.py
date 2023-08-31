@@ -9,16 +9,16 @@ from torch.utils.checkpoint import checkpoint
 from torch.utils.checkpoint import checkpoint
 
 # helpers
-from ai_models_nvidia_spherical.nvidia_spherical.layers import (
+from ai_models_fourcastnetv2.fourcastnetv2.layers import (
     trunc_normal_,
     DropPath,
     MLP,
 )
-from ai_models_nvidia_spherical.nvidia_spherical.layers import (
+from ai_models_fourcastnetv2.fourcastnetv2.layers import (
     SpectralAttentionS2,
     SpectralConvS2,
 )
-from ai_models_nvidia_spherical.nvidia_spherical.layers import (
+from ai_models_fourcastnetv2.fourcastnetv2.layers import (
     SpectralAttention2d,
     SpectralConv2d,
 )
@@ -26,12 +26,12 @@ from ai_models_nvidia_spherical.nvidia_spherical.layers import (
 import torch_harmonics as harmonics
 
 # to fake the sht module with ffts
-from ai_models_nvidia_spherical.nvidia_spherical.layers import RealFFT2, InverseRealFFT2
+from ai_models_fourcastnetv2.fourcastnetv2.layers import RealFFT2, InverseRealFFT2
 
-from ai_models_nvidia_spherical.nvidia_spherical.contractions import *
+from ai_models_fourcastnetv2.fourcastnetv2.contractions import *
 
-# from .nvidia_spherical import activations
-from ai_models_nvidia_spherical.nvidia_spherical.activations import *
+# from .fourcastnetv2 import activations
+from ai_models_fourcastnetv2.fourcastnetv2.activations import *
 
 
 class SpectralFilterLayer(nn.Module):

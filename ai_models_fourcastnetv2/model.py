@@ -14,12 +14,12 @@ import torch
 from ai_models.model import Model
 import datetime
 
-import ai_models_nvidia_spherical.nvidia_spherical as nvs
+import ai_models_fourcastnetv2.fourcastnetv2 as nvs
 
 LOG = logging.getLogger(__name__)
 
 
-class NvidiaSpherical(Model):
+class FourCastNetv2(Model):
     # Download
     download_url = "file:////home/mlx/data/weights/sfno/0.0/{file}"
     download_files = ["weights.tar", "global_means.npy", "global_stds.npy"]
@@ -252,8 +252,9 @@ class NvidiaSpherical(Model):
 
 def model(model_version, **kwargs):
     models = {
-        "0": NvidiaSpherical,
-        "release": NvidiaSpherical,
-        "latest": NvidiaSpherical,
+        "0": FourCastNetv2,
+        "small": FourCastNetv2,
+        "release": FourCastNetv2,
+        "latest": FourCastNetv2,
     }
     return models[model_version](**kwargs)

@@ -14,8 +14,8 @@ from torch.cuda import amp
 from typing import Optional
 import math
 
-from ai_models_nvidia_spherical.nvidia_spherical.contractions import *
-from ai_models_nvidia_spherical.nvidia_spherical.activations import *
+from ai_models_fourcastnetv2.fourcastnetv2.contractions import *
+from ai_models_fourcastnetv2.fourcastnetv2.activations import *
 
 
 def _no_grad_trunc_normal_(tensor, mean, std, a, b):

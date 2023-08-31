@@ -1,1 +1,0 @@
-from ai_models_nvidia_spherical.nvidia_spherical.sfnonet import FourierNeuralOperatorNet

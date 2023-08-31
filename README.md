@@ -1,6 +1,6 @@
-# ai-models-nvidia-spherical
+# ai-models-fourcastnetv2
 
-`ai-models-nvidia-spherical` is an [ai-models](https://github.com/ecmwf-lab/ai-models) plugin to run Nvidia's spherical harmonics tranformer.
+`ai-models-fourcastnetv2` is an [ai-models](https://github.com/ecmwf-lab/ai-models) plugin to run Nvidia's spherical harmonics tranformer.
 
 <TERMS OF USE>
 
@@ -18,7 +18,7 @@ as the spherical model by Nvidia isn't public yet.
 Once the model is public, to install the package, run:
 
 ```bash
-pip install ai-models-nvidia-spherical
+pip install ai-models-fourcastnetv2
 ```
 
 This will install the package and its dependencies.

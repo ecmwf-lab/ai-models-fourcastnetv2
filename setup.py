@@ -21,7 +21,7 @@ def read(fname):
 
 
 version = None
-for line in read("ai_models_nvidia_spherical/__init__.py").split("\n"):
+for line in read("ai_models_fourcastnetv2/__init__.py").split("\n"):
     if line.startswith("__version__"):
         version = line.split("=")[-1].strip()[1:-1]
 
@@ -30,7 +30,7 @@ assert version
 
 
 setuptools.setup(
-    name="ai-models-nvidia-spherical",
+    name="ai-models-fourcastnetv2",
     version=version,
     description="An ai-models plugin to run the Nvidia spherical harmonics FourCastNet v2 (small) model",
     long_description=read("README.md"),
@@ -38,7 +38,7 @@ setuptools.setup(
     author="European Centre for Medium-Range Weather Forecasts (ECMWF)",
     author_email="software.support@ecmwf.int",
     license="Apache License Version 2.0",
-    url="https://github.com/ecmwf-lab/ai-models-nvidia-spherical",
+    url="https://github.com/ecmwf-lab/ai-models-fourcastnetv2",
     packages=setuptools.find_packages(),
     include_package_data=True,
     install_requires=[
@@ -50,7 +50,7 @@ setuptools.setup(
     zip_safe=True,
     keywords="tool",
     entry_points={
-        "ai_models.model": ["fourcastnetv2-small = ai_models_nvidia_spherical.model:model"]
+        "ai_models.model": ["fourcastnetv2 = ai_models_fourcastnetv2.model:model", "fourcastnetv2-small = ai_models_fourcastnetv2.model:model"]
     },
     classifiers=[
         "Development Status :: 3 - Alpha",
