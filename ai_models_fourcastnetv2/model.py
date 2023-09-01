@@ -6,13 +6,13 @@
 # nor does it submit to any jurisdiction.
 
 
+import datetime
 import logging
 import os
 
 import numpy as np
 import torch
 from ai_models.model import Model
-import datetime
 
 import ai_models_fourcastnetv2.fourcastnetv2 as nvs
 
@@ -34,7 +34,7 @@ class FourCastNetv2(Model):
         ["t", "u", "v", "z", "r"],
         [1000, 925, 850, 700, 600, 500, 400, 300, 250, 200, 150, 100, 50],
     )
-    
+
     ordering = [
         "10u",
         "10v",
@@ -139,7 +139,6 @@ class FourCastNetv2(Model):
         self.stds = self.stds.astype(np.float32)
 
     def load_model(self, checkpoint_file):
-
         model = nvs.FourierNeuralOperatorNet()
 
         model.zero_grad()
@@ -199,7 +198,7 @@ class FourCastNetv2(Model):
         all_fields_numpy = self.normalise(all_fields_numpy)
 
         model = self.load_model(self.checkpoint_path)
-        
+
         # Run the inference session
         input_iter = torch.from_numpy(all_fields_numpy).to(self.device)
 
