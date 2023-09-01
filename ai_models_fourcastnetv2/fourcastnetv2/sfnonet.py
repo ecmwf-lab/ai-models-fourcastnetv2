@@ -1,30 +1,37 @@
 from functools import partial
-
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import torch_harmonics as harmonics
 from torch.utils.checkpoint import checkpoint
+
+# from apex.normalization import FusedLayerNorm
+
+from torch.utils.checkpoint import checkpoint
+
+# helpers
+from ai_models_fourcastnetv2.fourcastnetv2.layers import (
+    trunc_normal_,
+    DropPath,
+    MLP,
+)
+from ai_models_fourcastnetv2.fourcastnetv2.layers import (
+    SpectralAttentionS2,
+    SpectralConvS2,
+)
+from ai_models_fourcastnetv2.fourcastnetv2.layers import (
+    SpectralAttention2d,
+    SpectralConv2d,
+)
+
+import torch_harmonics as harmonics
+
+# to fake the sht module with ffts
+from ai_models_fourcastnetv2.fourcastnetv2.layers import RealFFT2, InverseRealFFT2
+
+from ai_models_fourcastnetv2.fourcastnetv2.contractions import *
 
 # from .fourcastnetv2 import activations
 from ai_models_fourcastnetv2.fourcastnetv2.activations import *
-from ai_models_fourcastnetv2.fourcastnetv2.contractions import *
-
-# to fake the sht module with ffts
-# helpers
-from ai_models_fourcastnetv2.fourcastnetv2.layers import (
-    MLP,
-    DropPath,
-    InverseRealFFT2,
-    RealFFT2,
-    SpectralAttention2d,
-    SpectralAttentionS2,
-    SpectralConv2d,
-    SpectralConvS2,
-    trunc_normal_,
-)
-
-# from apex.normalization import FusedLayerNorm
 
 
 class SpectralFilterLayer(nn.Module):
@@ -193,6 +200,7 @@ class FourierNeuralOperatorBlock(nn.Module):
             self.outer_skip_conv = nn.Conv2d(2 * embed_dim, embed_dim, 1, bias=False)
 
     def forward(self, x):
+
         residual = x
 
         x = self.norm0(x)
@@ -389,6 +397,7 @@ class FourierNeuralOperatorNet(nn.Module):
 
         self.blocks = nn.ModuleList([])
         for i in range(self.num_layers):
+
             first_layer = i == 0
             last_layer = i == self.num_layers - 1
 
@@ -476,6 +485,7 @@ class FourierNeuralOperatorNet(nn.Module):
         return x
 
     def forward(self, x):
+
         # save big skip
         if self.big_skip:
             residual = x
