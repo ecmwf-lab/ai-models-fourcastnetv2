@@ -50,7 +50,10 @@ setuptools.setup(
     zip_safe=True,
     keywords="tool",
     entry_points={
-        "ai_models.model": ["fourcastnetv2 = ai_models_fourcastnetv2.model:model", "fourcastnetv2-small = ai_models_fourcastnetv2.model:model"]
+        "ai_models.model": [
+            # "fourcastnetv2 = ai_models_fourcastnetv2.model:model",
+            "fourcastnetv2-small = ai_models_fourcastnetv2.model:model"
+        ]
     },
     classifiers=[
         "Development Status :: 3 - Alpha",
