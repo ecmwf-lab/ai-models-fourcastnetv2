@@ -104,8 +104,7 @@ def drop_path(
 
 
 class DropPath(nn.Module):
-    """Drop paths (Stochastic Depth) per sample  (when applied in main path of residual blocks).
-    """
+    """Drop paths (Stochastic Depth) per sample  (when applied in main path of residual blocks)."""
 
     def __init__(self, drop_prob=None):
         super(DropPath, self).__init__()
@@ -249,7 +248,7 @@ class InverseRealFFT2(nn.Module):
 
 class SpectralConv2d(nn.Module):
     """
-    Spectral Convolution as utilized in 
+    Spectral Convolution as utilized in
     """
 
     def __init__(
@@ -269,7 +268,7 @@ class SpectralConv2d(nn.Module):
         self.hidden_size = hidden_size
         self.sparsity_threshold = sparsity_threshold
         self.hard_thresholding_fraction = hard_thresholding_fraction
-        self.scale = 1 / hidden_size ** 2
+        self.scale = 1 / hidden_size**2
         self.contract_handle = (
             compl_contract2d_fwd_c if use_complex_kernels else compl_contract2d_fwd
         )
@@ -297,7 +296,6 @@ class SpectralConv2d(nn.Module):
             )
 
     def forward(self, x):
-
         dtype = x.dtype
         # x = x.float()
         B, C, H, W = x.shape
@@ -333,7 +331,7 @@ class SpectralConv2d(nn.Module):
 
 class SpectralConvS2(nn.Module):
     """
-    Spectral Convolution as utilized in 
+    Spectral Convolution as utilized in
     """
 
     def __init__(
@@ -378,8 +376,8 @@ class SpectralConvS2(nn.Module):
             self.w = nn.ParameterList([g1, g2, g3])
 
             self.contract_handle = (
-                contract_tt
-            )  # if use_complex_kernels else raise(NotImplementedError)
+                contract_tt  # if use_complex_kernels else raise(NotImplementedError)
+            )
         else:
             self.w = nn.Parameter(
                 self.scale * torch.randn(self.hidden_size, self.hidden_size, len(ii), 2)
@@ -394,7 +392,6 @@ class SpectralConvS2(nn.Module):
             )
 
     def forward(self, x):
-
         dtype = x.dtype
         # x = x.float()
         B, C, H, W = x.shape
@@ -494,7 +491,6 @@ class SpectralAttention2d(nn.Module):
         )
 
     def forward_mlp(self, xr):
-
         for l in range(self.spectral_layers):
             if hasattr(self, "b"):
                 xr = self.mul_add_handle(
@@ -512,7 +508,6 @@ class SpectralAttention2d(nn.Module):
         return xr
 
     def forward(self, x):
-
         dtype = x.dtype
         # x = x.to(torch.float32)
 
@@ -603,7 +598,6 @@ class SpectralAttentionS2(nn.Module):
         )
 
     def forward_mlp(self, xr):
-
         for l in range(self.spectral_layers):
             if hasattr(self, "b"):
                 xr = self.mul_add_handle(
@@ -622,7 +616,6 @@ class SpectralAttentionS2(nn.Module):
         return xr
 
     def forward(self, x):
-
         dtype = x.dtype
         # x = x.to(torch.float32)
 
