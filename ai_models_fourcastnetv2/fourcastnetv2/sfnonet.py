@@ -1,3 +1,7 @@
+# (C) Copyright 2023 Nvidia
+# This software is licensed under the terms of the Apache Licence Version 2.0
+# which can be obtained at http://www.apache.org/licenses/LICENSE-2.0.
+
 from functools import partial
 import torch
 import torch.nn as nn
@@ -200,7 +204,6 @@ class FourierNeuralOperatorBlock(nn.Module):
             self.outer_skip_conv = nn.Conv2d(2 * embed_dim, embed_dim, 1, bias=False)
 
     def forward(self, x):
-
         residual = x
 
         x = self.norm0(x)
@@ -397,7 +400,6 @@ class FourierNeuralOperatorNet(nn.Module):
 
         self.blocks = nn.ModuleList([])
         for i in range(self.num_layers):
-
             first_layer = i == 0
             last_layer = i == self.num_layers - 1
 
@@ -485,7 +487,6 @@ class FourierNeuralOperatorNet(nn.Module):
         return x
 
     def forward(self, x):
-
         # save big skip
         if self.big_skip:
             residual = x

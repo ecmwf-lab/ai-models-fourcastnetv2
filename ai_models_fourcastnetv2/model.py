@@ -20,7 +20,7 @@ LOG = logging.getLogger(__name__)
 
 class FourCastNetv2(Model):
     # Download
-    download_url = "file:////home/mlx/data/weights/sfno/0.0/{file}"
+    download_url = "https://get.ecmwf.int/repository/test-data/ai-models/fourcastnetv2/small/{file}"
     download_files = ["weights.tar", "global_means.npy", "global_stds.npy"]
 
     # Input
