@@ -6,15 +6,14 @@
 # nor does it submit to any jurisdiction.
 
 
+import datetime
 import logging
 import os
 
+import ai_models_fourcastnetv2.fourcastnetv2 as nvs
 import numpy as np
 import torch
 from ai_models.model import Model
-import datetime
-
-import ai_models_fourcastnetv2.fourcastnetv2 as nvs
 
 LOG = logging.getLogger(__name__)
 
@@ -202,7 +201,8 @@ class FourCastNetv2(Model):
         # Run the inference session
         input_iter = torch.from_numpy(all_fields_numpy).to(self.device)
 
-        sample_sfc = all_fields.sel(param="2t")[0]
+        # sample_sfc = all_fields.sel(param="2t")[0]
+        self.write_input_fields(all_fields)
 
         torch.set_grad_enabled(False)
 
