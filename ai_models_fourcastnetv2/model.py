@@ -6,14 +6,14 @@
 # nor does it submit to any jurisdiction.
 
 
-import datetime
 import logging
 import os
 
-import ai_models_fourcastnetv2.fourcastnetv2 as nvs
 import numpy as np
 import torch
 from ai_models.model import Model
+
+import ai_models_fourcastnetv2.fourcastnetv2 as nvs
 
 LOG = logging.getLogger(__name__)
 
